@@ -21,6 +21,6 @@ export const TitleRoman = styled.h1`
 `;
 
 export const SVG = styled.img`
-  height:25%;
+  height:200px;
 
 `;

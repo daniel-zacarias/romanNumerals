@@ -15,6 +15,12 @@ const romanConverter = {
   'M':1000
 }
 
+let subtration = {
+  'I' : ['V','X'],
+  'X': ['L', 'C'],
+  'C': ['D', 'M']
+}
+
 
 
 export default class data extends React.Component {
@@ -34,12 +40,30 @@ export default class data extends React.Component {
   }
   
   getDecimal(values){
-    let result = ''
-    values.forEach(element => {
-      if(romanConverter[element] == parseInt(this.state.text)){
-        result = element;
+    let result = [''];
+    let number = 0;
+    
+    if(this.state.text == "")
+      return
+
+    for(let i = 0; i < 7; i++){      
+      result = result.join('').split("");
+
+      if(subtration[result[result.length - 1]]){
+        for(let j = 0; j <subtration[result[result.length - 1]].length; j++){
+
+          if(this.getRoman(result.join('') + subtration[result[result.length - 1]][j]) == parseInt(this.state.text)){
+            result.push(subtration[result[result.length - 1]][j])
+            return result.join('');
+          }
+        }
+        }
+      number = this.getRoman(result.join(''))
+        
       }
-    });
+      
+    
+    result = result.join("")
     return result
   }
 
@@ -77,13 +101,26 @@ export default class data extends React.Component {
     // return correct.split('');
   }
 
-  getRoman(){
-    let arrayNumerals =  this.state.text.split('');
+  getRoman(text){
+    // let arrayNumerals =  this.state.text.split('');
+    let arrayNumerals = text.toString().split('');
+    let trade = text.toString().split('');
+    
 
     let number = 0;
     arrayNumerals.forEach((element, index, array) => {
-      if((romanConverter[array[index]] < romanConverter[array[index+1]]) && ['I', 'X', 'C'].includes(element))
-      number -=  romanConverter[element]
+      if((romanConverter[array[index]] < romanConverter[array[index+1]]) && subtration[element]){
+        if(subtration[element].includes(array[index+1]))
+          number -=  romanConverter[element]
+        else{
+          number += romanConverter[element]
+          trade[index] = arrayNumerals[index+1]
+          trade[index+1] = arrayNumerals[index]
+          this.setState({text:trade.join('')})
+          //handleClick(undefined);
+        }
+      }
+      
       else
       number += romanConverter[element]
     })
@@ -91,7 +128,7 @@ export default class data extends React.Component {
   }
 
   handleClick(e) {
-    let number =  isNaN(this.state.text) ? this.getRoman(): this.getDecimal(Object.keys(romanConverter));
+    let number =  isNaN(this.state.text) ? this.getRoman(this.state.text): this.getDecimal(Object.keys(romanConverter));
     this.setState({
       result:number
     })
@@ -118,7 +155,7 @@ export default class data extends React.Component {
     } 
 
     if(romanVerification.includes(lastLetter.toUpperCase()) || !isNaN(e.target.value)){
-      if(!isNaN(this.state.text) &&  isNaN(lastLetter) && !this.state.text == ''){
+      if(!isNaN(this.state.text) &&  isNaN(lastLetter) && !this.state.text == '' ){
         //this.setState({text: e.target.value.toUpperCase()});
         return
       }
