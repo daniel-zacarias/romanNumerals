@@ -15,10 +15,13 @@ const romanConverter = {
   'M':1000
 }
 
-let subtration = {
+
+
+let operationDecimal = {
   'I' : ['V','X'],
   'X': ['L', 'C'],
-  'C': ['D', 'M']
+  'C': ['D', 'M'],
+  'M': []
 }
 
 
@@ -39,66 +42,65 @@ export default class data extends React.Component {
     // this.configRomanCharacter = this.configRomanCharacter.bind(this);
   }
   
-  getDecimal(values){
-    let result = [''];
-    let number = 0;
+  getDecimal(value){
+    let result = [];
     
-    if(this.state.text == "")
+    let number = parseInt(value);
+
+    if(this.state.text == "" || number > 3999){
+      alert('Não pode deixar a caixa vazia ou um valor maior que 3999')
       return
+    }
 
-    for(let i = 0; i < 7; i++){      
-      result = result.join('').split("");
+    while(number > 0){
+      let numeral = ''
 
-      if(subtration[result[result.length - 1]]){
-        for(let j = 0; j <subtration[result[result.length - 1]].length; j++){
+      if(number >= 1 && number < 5){
+        numeral = 'I'
 
-          if(this.getRoman(result.join('') + subtration[result[result.length - 1]][j]) == parseInt(this.state.text)){
-            result.push(subtration[result[result.length - 1]][j])
-            return result.join('');
-          }
-        }
-        }
-      number = this.getRoman(result.join(''))
-        
+        if(number - 4 == 0)
+          numeral = 'V'
+
       }
+      else if( number >= 5 && number < 10 ){
+        if(number - 9 == 0)
+          numeral = 'IX'
+        else
+          numeral = 'V'
+      }
+      else if( number >= 10 && number < 50 ){
+        numeral = 'X'
+        if(number - 40 < 10 && number - 40 >= 0)
+          numeral = 'L'
+      }
+      else if( number >= 50 && number < 100 ){
+        if(number - 90 < 10 && number - 90 >= 0)
+          numeral = 'XC'
+        else
+          numeral = 'L'
+      }
+      else if( number >= 100 && number < 500 ){
+        numeral = 'C'
+        if(number - 400 < 100 && number - 400 >= 0)
+          numeral = 'D'
+      }
+      else if( number >= 500 && number < 1000 ){
+        if(number - 900 < 100 && number - 900 >= 0)
+        numeral = 'CM'
+      else
+        numeral = 'D'
+      }
+      else{
+        numeral = 'M'
+      }
+
+      number -= this.getRoman(numeral)   
+      result.push(numeral)
       
+    }
     
     result = result.join("")
     return result
-  }
-
-  configRomanCharacter(character){
-    // let letters = [];
-    // let correct = ''
-    // const priority = {
-    //   'I':7,
-    //   'V':1,
-    //   'X':7,
-    //   'L':3,
-    //   'C':7,
-    //   'D':5,
-    //   'M':6
-    // }
-  
-    // //console.log(Object.keys(priority). );
-    // console.log(character.indexOf('I')+ " " + character.lastIndexOf('I'));
-    // for(let i = 0; i < character.length; i++){
-    //   if(!['I','X', 'C'].includes(character[i]) && i != character.length)
-    //   letters.push(priority[character[i]])
-    //   else{
-    //     letters[i] =  (priority[character[i]])
-    //   }
-    // }
-
-    // letters.sort((a,b) => b-a)
-
-    // letters.forEach(element => correct += Object.entries(priority).find((key, value)=> value == element )[0])
-
-    // this.setState({
-    //   text : correct
-    // })
-
-    // return correct.split('');
   }
 
   getRoman(text){
@@ -109,18 +111,10 @@ export default class data extends React.Component {
 
     let number = 0;
     arrayNumerals.forEach((element, index, array) => {
-      if((romanConverter[array[index]] < romanConverter[array[index+1]]) && subtration[element]){
-        if(subtration[element].includes(array[index+1]))
+      if((romanConverter[array[index]] < romanConverter[array[index+1]]) && operationDecimal[element]){
           number -=  romanConverter[element]
-        else{
-          number += romanConverter[element]
-          trade[index] = arrayNumerals[index+1]
-          trade[index+1] = arrayNumerals[index]
-          this.setState({text:trade.join('')})
-          //handleClick(undefined);
-        }
+        
       }
-      
       else
       number += romanConverter[element]
     })
@@ -128,7 +122,18 @@ export default class data extends React.Component {
   }
 
   handleClick(e) {
-    let number =  isNaN(this.state.text) ? this.getRoman(this.state.text): this.getDecimal(Object.keys(romanConverter));
+    let number = this.state.text;
+
+    if(isNaN(number) && number){
+      number = this.getRoman(number);
+      if(number != this.getDecimal(number))
+      this.setState({
+        text:this.getDecimal(number)
+      })
+    }
+    else
+      number = this.getDecimal(number);
+    
     this.setState({
       result:number
     })
