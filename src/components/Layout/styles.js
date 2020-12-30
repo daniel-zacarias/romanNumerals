@@ -1,11 +1,5 @@
 import styled from 'styled-components';
 
-// SL - Server List
-// SN - Server Name
-// CI - Channel Info
-// CL - Channel List
-// CD - Channel Data
-// UI - User Info
 
 export const Grid = styled.div`
   display: grid;
@@ -13,6 +7,15 @@ export const Grid = styled.div`
   grid-template-rows: 0.25fr auto; 
   grid-template-areas:
     'TC TC'
-    'CN L';
+    'CN D';
   height: 100vh;
+
+  @media(max-width: 800px) {
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: 400px  300px auto; 
+    grid-template-areas:
+    'TC TC'
+    'CN CN'
+    'D D';
+  }
 `;

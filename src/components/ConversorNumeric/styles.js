@@ -15,6 +15,7 @@ export const Content = styled.div`
   width: 50%;
   height:50%;
   /* background:rgba(219,192,71,0.5); */
+  min-width: 200px;
   background-color: #ACC8F2;
   border: 2px black solid;
   border-radius:10px;
@@ -28,6 +29,10 @@ export const Content = styled.div`
     padding: 5px 10px;
     font-size: 1.5rem;
     
+  }
+
+  @media(max-width: 800px) {
+    height:auto;
   }
 `;
 

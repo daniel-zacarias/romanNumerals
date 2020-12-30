@@ -4,6 +4,7 @@ import { Grid } from './styles';
 
 import Home from '../TitleColor';
 import ConversorNumeric from '../ConversorNumeric';
+import Description from '../Description';
 // import ServerList from '../ServerList';
 // import ServerName from '../ServerName';
 // import ChannelInfo from '../ChannelInfo';
@@ -17,6 +18,7 @@ export default function() {
     <Grid>
       <Home/>
       <ConversorNumeric/>
+      <Description/>
     </Grid>
   );
 };
