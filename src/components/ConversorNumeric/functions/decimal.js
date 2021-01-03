@@ -23,7 +23,7 @@ export default function (value) {
         while(number > 0){
           let numeral = ''
           
-          if(number >= 1 && number < 5){
+          if((number >= 1 && number < 5) || sub(4, 1)){
             numeral = 'I'
     
             if(number - 4  == 0 || sub(4, 1))
