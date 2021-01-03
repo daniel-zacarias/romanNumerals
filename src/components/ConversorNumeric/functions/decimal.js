@@ -37,23 +37,23 @@ export default function (value) {
             else
               numeral = 'V'
           }
-          else if( (number >= 10 && number < 50) || sub(10,10) || sub(40,10) ){
+          else if( (number >= 10 && number < 50) || sub(10,30) || sub(40,10) ){
             numeral = 'X'
             if((number - 40  < 10 && number - 40 >= 0) || sub(40,10) )
               numeral += 'L'
           }
-          else if(( number >= 50 && number < 100 ) || sub(50,10) || sub(90,10)){
+          else if(( number >= 50 && number < 100 ) || sub(50,40) || sub(90,10)){
             if((number - 90 < 10 && number - 90 >= 0 ) || sub(90,10))
               numeral = 'XC'
             else
               numeral = 'L'
           }
-          else if(( number >= 100  && number < 500 || sub(400,100) || sub(100,100) )){
+          else if(( number >= 100  && number < 500 || sub(100,300) || sub(400,100) )){
             numeral = 'C'
             if((number - 400   < 100 && number - 400  >= 0) || sub(400,100))
               numeral += 'D'
           }
-          else if( (number >= 500  && number < 1000) || sub(500,100) || sub(900,100)){
+          else if( (number >= 500  && number < 1000) || sub(500,400) || sub(900,100)){
             if((number - 900  < 100 && number - 900  >= 0) || sub(900,100))
             numeral = 'CM'
           else
