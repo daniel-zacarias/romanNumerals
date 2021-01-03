@@ -4,6 +4,7 @@ import { Container, Content,  Converter, Button, Result } from './styles';
 
 import getDecimal from './functions/decimal';
 import getRoman from './functions/roman'
+import roman from './functions/roman';
 
 let romanVerification = 'IVXLCDM'.slice('');
 
@@ -50,21 +51,29 @@ export default class data extends React.Component {
 
 
   handleChange(e){
-    let lastLetter = e.nativeEvent.data;
+    let lastLetter = e.target.value[e.target.value.length -1];
+
     
+
     if(lastLetter == null){
       this.setState({text: e.target.value.toUpperCase()});
       return
     } 
 
+    if(e.target.value.length > 7)
+      return
+
+      if(window.innerWidth <= 800 ){
+        this.setState({text: e.target.value.toUpperCase()});
+        return
+      }
     if(romanVerification.includes(lastLetter.toUpperCase()) || !isNaN(e.target.value)){
-      if(!isNaN(this.state.text) &&  isNaN(lastLetter) && !this.state.text == '' ){
+      if(!isNaN(e.target.value) &&  isNaN(lastLetter) && !this.state.text == '' ){
         return
       }
       this.setState({text: e.target.value.toUpperCase()});
     }
 
-    
 
 
   }
@@ -74,7 +83,7 @@ export default class data extends React.Component {
       <Container>
         <Content>
           <label for="converter">Digite um número decimal ou Algarismo Romano</label>
-          <Converter maxLength='7' id="converter" onChange={this.handleChange} value={this.state.text}/>
+          <Converter id="converter" maxLength="7" max="7" type="text" onChange={this.handleChange} value={this.state.text}/>
           <Button onClick={this.handleClick}>Converter Número</Button>
           <Result >{this.state.result}</Result>
         </Content>

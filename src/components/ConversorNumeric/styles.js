@@ -44,6 +44,10 @@ export const Converter = styled.input`
   font-size: 2.5rem;
   text-transform:uppercase;
   text-align:center;
+
+  @media(max-width: 800px) {
+    width:80%;
+  }
 `;
 
 export const Button = styled.button`

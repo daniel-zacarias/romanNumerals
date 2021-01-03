@@ -31,7 +31,7 @@ export default function (value) {
             
     
           }
-          else if( (number >= 5  && number < 10 ) || sub(5,1) || sub(9,1)){
+          else if( (number >= 5  && number < 10 ) || sub(5,4) || sub(9,1)){
             if(number - 9  == 0 || sub(9,1))
               numeral = 'IX'
             else
