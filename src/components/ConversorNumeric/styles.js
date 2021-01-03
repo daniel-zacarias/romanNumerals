@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled , {css} from 'styled-components';
 
 
 
@@ -58,7 +58,12 @@ export const Button = styled.button`
 `;
 
 
-export const Result = styled.article`
+export const Result = styled.span`
   font-size: 2rem;
   text-transform:uppercase;
+  ${props => props.millenium && 
+  css`
+    text-decoration:overline;
+  `}
+  
 `

@@ -35,13 +35,13 @@ export default class data extends React.Component {
 
     if(isNaN(number) && number){
       number = this.getRoman(number);
-      if(number != getDecimal(number))
+      if(number != getDecimal(number)[0])
       this.setState({
-        text:getDecimal(number)
+        text:getDecimal(number)[0]
       })
     }
     else
-      number = getDecimal(number);
+      number = getDecimal(number)[1];
     
     this.setState({
       result:number
@@ -52,9 +52,10 @@ export default class data extends React.Component {
     let boolean = false;
     previous = [previous[index],previous[index+1], previous[index+2], previous[index+3] ]
     current = Array(4).fill(current);
-    if(previous.toString() == current.toString())
+    if(previous.toString() == current.toString() )
     boolean = true
-
+    if(!isNaN(current.join('')))
+    boolean = false
     return boolean;
   }
 
@@ -92,7 +93,7 @@ export default class data extends React.Component {
           <label for="converter">Digite um número decimal ou Algarismo Romano</label>
           <Converter maxLength='7' id="converter" onChange={this.handleChange} value={this.state.text}/>
           <Button onClick={this.handleClick}>Converter Número</Button>
-          <Result>{this.state.result}</Result>
+          <Result >{this.state.result}</Result>
         </Content>
         
   
