@@ -10,7 +10,7 @@ function ListItem(props) {
     2: [15,20,30,40,50,100,200,400,500,1000]
   }
 
-  return <li>{getDecimal(numbers[props.page][props.value])[0]} = {numbers[props.page][props.value]}</li>;
+  return <li>{getDecimal(numbers[props.page][props.value]).text} = {numbers[props.page][props.value]}</li>;
 }
 
 function NumberList(props) {

@@ -8,7 +8,7 @@ export const Container = styled.div`
   display:flex;
   align-items:center;
   justify-content:center;
-  
+  background-color: ${props => props.theme.bg}
 `
 
 export const Content = styled.div`
@@ -16,7 +16,7 @@ export const Content = styled.div`
   height:50%;
   /* background:rgba(219,192,71,0.5); */
   min-width: 200px;
-  background-color: #ACC8F2;
+  background-color: ${props => props.theme.bg_blue};
   border: 2px black solid;
   border-radius:10px;
   box-shadow: 2px 1px 1px 1px black;
@@ -28,7 +28,7 @@ export const Content = styled.div`
   >label{
     padding: 5px 10px;
     font-size: 1.5rem;
-    
+    color:${props => props.theme.font_color};
   }
 
   @media(max-width: 800px) {
@@ -44,7 +44,7 @@ export const Converter = styled.input`
   font-size: 2.5rem;
   text-transform:uppercase;
   text-align:center;
-
+  color: ${props => props.theme.font_color};
   @media(max-width: 800px) {
     width:80%;
   }
@@ -52,11 +52,11 @@ export const Converter = styled.input`
 
 export const Button = styled.button`
  background: white;
-  color: #468CDA;
+  color: ${props => props.theme.btn_color};
   font-size: 1.7rem;
   margin: 1em;
   padding: 0.25em 1em;
-  border: 2px solid #468CDA;
+  border: 2px solid ${props => props.theme.btn_color};
   border-radius: 3px;
   cursor:pointer;
 `;
@@ -65,6 +65,7 @@ export const Button = styled.button`
 export const Result = styled.span`
   font-size: 2rem;
   text-transform:uppercase;
+  color:${props => props.theme.font_color};
   ${props => props.millenium && 
   css`
     text-decoration:overline;

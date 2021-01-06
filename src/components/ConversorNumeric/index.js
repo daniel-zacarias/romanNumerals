@@ -4,7 +4,6 @@ import { Container, Content,  Converter, Button, Result } from './styles';
 
 import getDecimal from './functions/decimal';
 import getRoman from './functions/roman'
-import roman from './functions/roman';
 
 let romanVerification = 'IVXLCDM'.slice('');
 
@@ -22,30 +21,40 @@ export default class data extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.getDecimal = getDecimal.bind(this);
-    this.getRoman = getRoman.bind(this);
-    // this.configRomanCharacter = this.configRomanCharacter.bind(this);
+    // this.addResult = this.addResult.bind(this)
   }
   
-  
+  addResultRoman(){
+    let result = getRoman(this.state.text);
+    let numeral = getDecimal(result).text
 
-  
+    if(result != numeral)
+    this.setState({
+      text:numeral
+    })
+    return (<Result children={result}></Result> );
+  }
+
+  addResultDecimal(){
+    let data = getDecimal(this.state.text).data;
+
+    data = data.map(element => {
+      return (<Result millenium={element.millenium} children={element.numeral}></Result>)
+    });
+
+    return data;
+  }
 
   handleClick(e) {
-    let number = this.state.text;
-
-    if(isNaN(number) && number){
-      number = this.getRoman(number);
-      if(number != getDecimal(number)[0])
-      this.setState({
-        text:getDecimal(number)[0]
-      })
-    }
+    let result = this.state.text;
+    console.log(getDecimal(result));
+    if(isNaN(result) && result)
+      result = this.addResultRoman()
     else
-      number = getDecimal(number)[1];
+      result = this.addResultDecimal();
     
     this.setState({
-      result:number
+      result:result
     })
   }
 
@@ -83,9 +92,9 @@ export default class data extends React.Component {
       <Container>
         <Content>
           <label for="converter">Digite um número decimal ou Algarismo Romano</label>
-          <Converter id="converter" maxLength="7" max="7" type="text" onChange={this.handleChange} value={this.state.text}/>
+          <Converter id="converter" onKeyPress={(e) => e.key == 'Enter' ? this.handleClick(e) : ''} maxLength="7" max="7" type="text" onChange={this.handleChange} value={this.state.text}/>
           <Button onClick={this.handleClick}>Converter Número</Button>
-          <Result >{this.state.result}</Result>
+          <section children={this.state.result}></section>
         </Content>
         
   

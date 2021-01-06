@@ -1,13 +1,16 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle} from 'styled-components';
+
+
 
 export default createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: background 1s ;
   }
   html, body, #root {
-    height: 100%;
+    height: 100vh;
     font-size:62.5%;
   }
   *, button, input {
@@ -15,7 +18,7 @@ export default createGlobalStyle`
     outline: 0;
     font-family: 'Roboto', sans-serif;
   }
-  :root {
-    
-  }
+
+
+  
 `;
